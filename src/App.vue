@@ -1,26 +1,58 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+
+ 
+  
+   
+
+    <div class="auth-wrapper">
+      <div class="auth-inner">
+
+          <router-view />
+      
+      </div>
+    </div>
+
+  </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+//import axios from 'axios'
+
+//import navbar from './components/nav.vue';
+//import home from './components/home.vue';
+//import login from './components/login.vue'    We don't need these components cuz we're using routers  ! ! 
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    //navbar,
+    //home,
+    //login,
+  }, 
+  /*data(){
+        return {
+            user :null,
+        }
+    },
+    created() {
+        axios.get('http://127.0.0.1:8000/api/user', {
+            headers : {
+                Authorization : 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+        .then(res => {console.log(res.data.name) ; this.user = res.data })
+
+    },*/
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  body{
+    
+    padding : 100px 50px 50px 50px ;
+    background:#0c6d499a;
+  }
 </style>
