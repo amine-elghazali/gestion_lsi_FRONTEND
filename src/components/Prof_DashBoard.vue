@@ -8,7 +8,7 @@
           <div class="sidebar">
 
             <head>
-              <link  rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+              <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
             </head>
                   <div class="logo-details">
                       <i class='bx bxl-c-plus-plus'></i>
@@ -48,7 +48,8 @@
                               </router-link>
                               
                           </li>
-              
+
+                          
                           <li>
                             <div class="fixed-bottom">
                               <div class="profile-content">
@@ -68,79 +69,46 @@
             </div>
 
 
-    
 
-      <div class="content">
-        <div id="HeaderDiv" class="border-start  shadow-lg border-5 border-info">
-            <h3 class="p-3">  Dans cette page ,vous pouvez consulter les notes de vos etudiants </h3>
-        </div>
-        
-      </div>
 
-    <div class="pt-5">
-      <div class="card w-50 m-auto">
+            <div class="content">
 
-          <div class="card-header">
-            <h3>Nom de Module : {{prof.nom}} </h3>
-              
-            <form @submit.prevent="handleSubmit" class="mt-3">
+                  
 
-                <input type="text" value="Etudiant" class="form-control" disabled>
+                <div id="services" class="shadow-lg">
+                  <!-- #1 -->
+                  <div class="features row">
+                    <p></p>
+                    <div class="medium-4 columns">
+                      <i class="fa fa-graduation-cap fa-3x"></i>
+                      <h3>Consulter les p.f.e</h3>
+                      <p>vous pouvez consulter les sujets des projets de fin d'études de vos etudiants. </p>
+                    </div>
+                    <!-- #2 -->
+                      <div class="medium-4 columns">
+                        <i class="fa fa-pencil-square-o fa-3x"></i>
+                        <h3>Administration</h3>
+                        <p>
+                        gérer et consulter les notes de vos étudiants.
+                        </p>
+                    </div>
+                    <!-- #3 -->
+                    <div class="medium-4 columns">
+                        <i class="fa fa-calendar fa-3x"></i>
+                        <h3>Calendrier</h3>
+                        <p>Voir votre votre emploi du temp et reserver une seance si vous voulez.</p>
+                    </div>
+                    
+                  
+                  </div>
+                </div>
+  
 
-                <label for="nom" class="m-2">Nom : </label>
-                   <input type="text" class="form-control" v-model="dataForm.nom" id="nom" disabled>
 
-                <label for="prenom" class="m-2">Prenom :</label>
-                   <input type="text" class=" form-control" v-model="dataForm.prenom" id="prenom" disabled>
+            </div>
 
-                <label for="email" class="m-2"> Email :</label>
-                   <input type="text" class=" form-control" v-model="dataForm.email" id="email" disabled>
-
-                <label for="note" class="m-2"> Note :</label>
-                   <input type="number" min="0" max="20" class=" form-control" v-model="dataForm.note" id="note">
-
-                  <button style="diplay:flex" type="submit" class="btn btn-info mt-2" >Enregistrer</button>
-                    <div  v-if="seen" class="pt-2">
-                                <button class="btn btn-warning" @click="cancelEdit">Annuler</button>
-                    </div>  
-              
-            </form>
-
-          </div>
-
-        <div class="card-body shadow-lg">
-
-          <table class="table caption-top table-sm table-primary table-hover text-center">
-          <caption> liste des etudiants :  </caption>
-                <thead class="table-info">
-                  <tr>
-                    <th>#</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Email</th>
-                    <th>note</th>
-                    <th>Modifier la note</th>
-                  </tr>
-                </thead>
-                
-                <tbody>
-                  <tr v-for="note in notes" :key="note.id" >
-                    <td> {{note.id}}</td>
-                    <td> {{note.etudiant.nom}}</td>
-                    <td> {{note.etudiant.prenom}}</td>
-                    <td> {{note.etudiant.email}}</td>
-                    <td> {{note.note}}</td>
-                    <td><button @click="onEdit(note)" class="btn btn-warning"><i class="uil-edit"></i></button></td>
-                  </tr>
-                </tbody>
-                
-          </table>
-
-        </div>
-
-      </div>
     </div>
-  </div>
+    
 
 
 </template>
@@ -151,25 +119,15 @@
 
 import axios from 'axios'
 
-
 export default {
-    name : 'Prof',
+    name : 'Prof_DashBoard',
 
-    
-   data(){
+
+    data(){
         return {
             user :null,
             prof :null,
-            notes :{},
-            dataForm : {
-                nom : '',
-                prenom : '',
-                email : '',
-                note : ''
-            },
-            seen :false,
-            idToUpdate :null ,
-            moduleUpd :null,
+            notes :[]
         }
     },
     created() {
@@ -187,71 +145,33 @@ export default {
                 }
             })
             .then(res => {console.log(res.data.name) ; this.user = res.data })
-
-            ])
-
-          this.getEtudiantsNotes();
-    },
-
-    methods : {
-
-      
-        getEtudiantsNotes(){
+          ,
           axios.get('http://127.0.0.1:8000/api/note/module', {
               headers : {
                     Authorization : 'Bearer ' + localStorage.getItem('token')
                 }
             })
-            .then(res => { this.notes = res.data })
-            
-        }
-      ,
+            .then(res => { this.notes = res.data})
+           
+            ])
+    },
 
-
-       handleSubmit(){
-          //console.log(this.idToUpdate);
-
-          //console.log(this.dataForm.note)
-          console.log(this.moduleUpd)
-          axios.put('http://127.0.0.1:8000/api/prof/etudNote/'+this.idToUpdate+'/'+this.moduleUpd,{note : this.dataForm.note})
-          .then( () => {
-            this.seen = false ; 
-            this.getEtudiantsNotes();
-            this.dataForm.nom=null;
-            this.dataForm.prenom=null;
-            this.dataForm.email=null;
-            this.dataForm.note=null;
-          } )
-          
-        },
-
-        onEdit(note){
-          //console.log(note.etudiant)
-          //console.log(note.etudiant.nom)
-          //console.log(note.etudiant.id)
-         
-          this.dataForm.nom =note.etudiant.nom ; 
-          this.dataForm.prenom =note.etudiant.prenom ; 
-          this.dataForm.email =note.etudiant.email ; 
-          this.dataForm.note =note.note ; 
-          this.moduleUpd = note.module;
-          this.idToUpdate = note.etudiant.id;
-          console.log(this.idToUpdate);
-          this.seen = true;
-        },
-
-
+    methods : {
          handleLogout(){
-          axios.post('http://127.0.0.1:8000/api/logout',{body:'logoutbody'},{headers: {
-                  'Authorization' : ('Bearer  '+ localStorage.getItem('token'))
-              }})
-                localStorage.removeItem('token');
-                
-                
-                this.$router.push('/');
+      axios.post('http://127.0.0.1:8000/api/logout',{body:'logoutbody'},{headers: {
+               'Authorization' : ('Bearer  '+ localStorage.getItem('token'))
+           }})
+            localStorage.removeItem('token');
+            
+            
+            this.$router.push('/');
             
         },
-       
+
+        onEdit(id){
+          confirm('u want to edit  ? ')
+          window.console.log('id to edit : '+id)
+        }
     },
 }
 
@@ -262,18 +182,106 @@ export default {
 
 <style scoped>
 
+
 .content{
-  padding-top: 5%;
-  padding-left: 20%;
+  padding-top: 8%;
+  padding-left: 15%;
 }
 
-#HeaderDiv{
-  background-color: #a8deeeb2;
-  width: 75%;
+
+#services{background:#efefef;
+  padding:50px;
+max-width:75vw;
+margin:0 auto;}
+body{font-family:sans-serif;color: #444;}
+div {display: block;}
+
+*, :after, :before {
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
 }
-  #HeaderDiv :hover{
-    background-color: #6ee9ff4b;
-  }
+.row:after {clear: both;}
+.row:after, .row:before {
+content: " ";
+display: table;
+}
+
+.row {
+width: 100%;
+margin: 0 auto;
+max-width: 62.5rem;
+}
+.medium-4 {width: 33.33333%;}
+
+.column, .columns {
+position: relative;
+padding-left: .9375rem;
+padding-right: .9375rem;
+float: left;
+}
+
+.medium-4 h3{
+  padding:10px 0px 10px 0px;
+}
+
+
+
+
+
+#services .fa {font-size: 3.4em;}
+  #services .features {
+text-align: center;
+}
+#services i {padding: 1em;}
+.fa {
+display: inline-block;
+font: normal normal normal 14px/1 FontAwesome;
+font-size: inherit;
+text-rendering: auto;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+#services .fa {
+text-align: center;
+background: #6ae1ff;
+
+display: block;
+margin: auto;
+font-size: 4em;
+}
+#services p {
+padding: 0;
+float:left;
+}
+p {
+line-height:160%;
+display: block;
+-webkit-margin-before: 1em;
+-webkit-margin-after: 1em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+}
+
+
+
+
+@media only screen and
+  (max-width:749px){
+    
+    .medium-4 {width: 100%;}
+
+.column, .columns {
+position: relative;
+padding-left: 0rem;
+padding-right: 0rem;
+margin-bottom:2em;
+}
+    
+    
+}
+  
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 *{
   margin: 0;

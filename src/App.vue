@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    
 
  
   
@@ -49,10 +50,11 @@ export default {
 }
 </script>
 
-<style>
+<style >
   body{
     
-    padding : 100px 50px 50px 50px ;
+ 
+ 
     background:#0c6d499a;
   }
 </style>

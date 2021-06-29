@@ -48,7 +48,7 @@
                               </router-link>
                               
                           </li>
-              
+                          
                           <li>
                             <div class="fixed-bottom">
                               <div class="profile-content">
@@ -67,79 +67,76 @@
                     </ul>
             </div>
 
+            <div class="content">
+              <div id="HeaderDiv" class="border-start  shadow-lg border-5 border-info">
+                <h3>Voici la liste Des étudiants que vous encadrez</h3>
+              </div>
 
-    
+            <div class=" pl-5 pr-5  pt-5">
 
-      <div class="content">
-        <div id="HeaderDiv" class="border-start  shadow-lg border-5 border-info">
-            <h3 class="p-3">  Dans cette page ,vous pouvez consulter les notes de vos etudiants </h3>
-        </div>
-        
-      </div>
+                <div class="card w-75 m-auto">
+                    <div class="card-header">
+                        <h2>Liste des Pfes : </h2>
 
-    <div class="pt-5">
-      <div class="card w-50 m-auto">
+                        <form @submit.prevent="handleSubmit" class="mt-3">
 
-          <div class="card-header">
-            <h3>Nom de Module : {{prof.nom}} </h3>
-              
-            <form @submit.prevent="handleSubmit" class="mt-3">
+                            <input type="text" value="Etudiant" class="form-control" disabled>
 
-                <input type="text" value="Etudiant" class="form-control" disabled>
+                            <label for="nom" class="m-2">Nom : </label>
+                                <input type="text" class="form-control" v-model="dataForm.nom" id="nom" disabled>
 
-                <label for="nom" class="m-2">Nom : </label>
-                   <input type="text" class="form-control" v-model="dataForm.nom" id="nom" disabled>
+                            <label for="prenom" class="m-2">Prenom :</label>
+                                <input type="text" class=" form-control" v-model="dataForm.prenom" id="prenom" disabled>
 
-                <label for="prenom" class="m-2">Prenom :</label>
-                   <input type="text" class=" form-control" v-model="dataForm.prenom" id="prenom" disabled>
+                            <label for="email" class="m-2"> Email :</label>
+                                <input type="text" class=" form-control" v-model="dataForm.email" id="email" disabled>
 
-                <label for="email" class="m-2"> Email :</label>
-                   <input type="text" class=" form-control" v-model="dataForm.email" id="email" disabled>
+                            <label for="sujet" class="m-2"> sujet :</label>
+                                <input type="text" min="0" max="20" class=" form-control" v-model="dataForm.sujet" id="sujet">
 
-                <label for="note" class="m-2"> Note :</label>
-                   <input type="number" min="0" max="20" class=" form-control" v-model="dataForm.note" id="note">
+                            <button style="diplay:flex" type="submit" class="btn btn-info mt-2" >Enregistrer</button>
+                                <div  v-if="seen" class="pt-2">
+                                            <button class="btn btn-warning" @click="cancelEdit">Annuler</button>
+                                </div>  
+            
+                        </form>
 
-                  <button style="diplay:flex" type="submit" class="btn btn-info mt-2" >Enregistrer</button>
-                    <div  v-if="seen" class="pt-2">
-                                <button class="btn btn-warning" @click="cancelEdit">Annuler</button>
-                    </div>  
-              
-            </form>
+                    </div>
+                    <div class="card-body">
+                        <table class="table caption-top table-sm table-primary table-hover text-center">
+                            <caption> liste des etudiants :  </caption>
+                            
+                            <thead class="table-info">
+                                <tr>
+                                    <th>#</th>
+                                    <th>nom</th>
+                                    <th>prenom</th>
+                                    <th>email</th>
+                                    <th>Sujet</th>
+                                    <th>Modifier le sujet</th>
+                                </tr>
+                                </thead>
+                                
+                                <tbody>
+                                <tr v-for="pfe in pfes" :key="pfe.id" >
+                                    <td> {{pfe.id}}</td>
+                                    <td> {{pfe.etudiant.nom}}</td>
+                                    <td> {{pfe.etudiant.prenom}}</td>
+                                    <td> {{pfe.etudiant.email}}</td>
+                                    <td> {{pfe.sujet}}</td>
+                                    <td><button @click="onEdit(pfe)" class="btn btn-warning"><i class="uil-edit"></i></button></td>
 
-          </div>
+                                </tr>
+                            </tbody>
+                                    
+                        </table>
+                    </div>
+                </div>
 
-        <div class="card-body shadow-lg">
+            </div>
 
-          <table class="table caption-top table-sm table-primary table-hover text-center">
-          <caption> liste des etudiants :  </caption>
-                <thead class="table-info">
-                  <tr>
-                    <th>#</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>Email</th>
-                    <th>note</th>
-                    <th>Modifier la note</th>
-                  </tr>
-                </thead>
-                
-                <tbody>
-                  <tr v-for="note in notes" :key="note.id" >
-                    <td> {{note.id}}</td>
-                    <td> {{note.etudiant.nom}}</td>
-                    <td> {{note.etudiant.prenom}}</td>
-                    <td> {{note.etudiant.email}}</td>
-                    <td> {{note.note}}</td>
-                    <td><button @click="onEdit(note)" class="btn btn-warning"><i class="uil-edit"></i></button></td>
-                  </tr>
-                </tbody>
-                
-          </table>
+            </div>
 
-        </div>
-
-      </div>
-    </div>
   </div>
 
 
@@ -151,96 +148,71 @@
 
 import axios from 'axios'
 
-
 export default {
-    name : 'Prof',
+    name : 'Prof_Pfe',
 
-    
-   data(){
+    data() {
         return {
-            user :null,
-            prof :null,
-            notes :{},
+            pfes : {},
             dataForm : {
                 nom : '',
                 prenom : '',
                 email : '',
-                note : ''
+                sujet : ''
             },
+            idToUpdate :false ,
+            idEtudToUp :null,
+            idProfToUp :null,
             seen :false,
-            idToUpdate :null ,
-            moduleUpd :null,
         }
     },
-    created() {
 
-        axios.all([
-          axios.get('http://127.0.0.1:8000/api/module/prof',{
+    methods: {
+        getPfeEtudiants(){
+            axios.get('http://127.0.0.1:8000/api/pfe/prof',{
             headers : {
                     Authorization : 'Bearer ' + localStorage.getItem('token')
                 }
-          }).then(res => {console.log(res.data.name) ; this.prof = res.data })
-          ,
-          axios.get('http://127.0.0.1:8000/api/user', {
-              headers : {
-                    Authorization : 'Bearer ' + localStorage.getItem('token')
-                }
-            })
-            .then(res => {console.log(res.data.name) ; this.user = res.data })
+            }).then( res => {console.log(res) ; this.pfes = res.data})
+            console.log(this.pfes)
+        },
 
-            ])
-
-          this.getEtudiantsNotes();
-    },
-
-    methods : {
-
-      
-        getEtudiantsNotes(){
-          axios.get('http://127.0.0.1:8000/api/note/module', {
-              headers : {
-                    Authorization : 'Bearer ' + localStorage.getItem('token')
-                }
-            })
-            .then(res => { this.notes = res.data })
-            
-        }
-      ,
-
-
-       handleSubmit(){
-          //console.log(this.idToUpdate);
-
-          //console.log(this.dataForm.note)
-          console.log(this.moduleUpd)
-          axios.put('http://127.0.0.1:8000/api/prof/etudNote/'+this.idToUpdate+'/'+this.moduleUpd,{note : this.dataForm.note})
-          .then( () => {
-            this.seen = false ; 
-            this.getEtudiantsNotes();
-            this.dataForm.nom=null;
-            this.dataForm.prenom=null;
-            this.dataForm.email=null;
-            this.dataForm.note=null;
-          } )
+        handleSubmit(){
+            //console.log(this.idToUpdate);
+          
+         
+            axios.put('http://127.0.0.1:8000/api/pfe/prof/update/'+this.idToUpdate,
+                {
+                    sujet : this.dataForm.sujet,
+                    etudiant_id : this.idEtudToUp,
+                    professeur_id : this.idProfToUp
+                })
+            .then( () => {
+                this.seen = false ; 
+                this.getPfeEtudiants();
+                this.dataForm.nom=null;
+                this.dataForm.prenom=null;
+                this.dataForm.email=null;
+                this.dataForm.sujet=null;
+            } )
           
         },
 
-        onEdit(note){
-          //console.log(note.etudiant)
-          //console.log(note.etudiant.nom)
-          //console.log(note.etudiant.id)
-         
-          this.dataForm.nom =note.etudiant.nom ; 
-          this.dataForm.prenom =note.etudiant.prenom ; 
-          this.dataForm.email =note.etudiant.email ; 
-          this.dataForm.note =note.note ; 
-          this.moduleUpd = note.module;
-          this.idToUpdate = note.etudiant.id;
-          console.log(this.idToUpdate);
-          this.seen = true;
+
+        onEdit(pfe){
+            console.log(pfe.etudiant_id)
+            
+
+            this.dataForm.nom = pfe.etudiant.nom ; 
+            this.dataForm.prenom = pfe.etudiant.prenom ; 
+            this.dataForm.email = pfe.etudiant.email ; 
+            this.dataForm.sujet = pfe.sujet ; 
+
+            this.idEtudToUp = pfe.etudiant_id;
+            this.idProfToUp = pfe.professeur_id;
+            this.idToUpdate = pfe.id;
+            this.seen = true;
         },
-
-
          handleLogout(){
           axios.post('http://127.0.0.1:8000/api/logout',{body:'logoutbody'},{headers: {
                   'Authorization' : ('Bearer  '+ localStorage.getItem('token'))
@@ -251,10 +223,16 @@ export default {
                 this.$router.push('/');
             
         },
-       
+
+
+
+    },
+
+
+    created() {
+        this.getPfeEtudiants();
     },
 }
-
 </script>
 
 
@@ -264,16 +242,17 @@ export default {
 
 .content{
   padding-top: 5%;
-  padding-left: 20%;
+  padding-left: 20%
 }
 
-#HeaderDiv{
+  #HeaderDiv{
   background-color: #a8deeeb2;
   width: 75%;
 }
   #HeaderDiv :hover{
     background-color: #6ee9ff4b;
   }
+
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 *{
   margin: 0;

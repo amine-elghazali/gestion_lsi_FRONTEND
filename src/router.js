@@ -7,14 +7,32 @@ import login from './components/login.vue'
 import Prof from './components/Prof.vue'
 import Etudiant from './components/Etudiant.vue'
 import Contact from './components/Contact.vue'
-
+import admin from './components/admin.vue'
+//import DashBoard from './components/DashBoard.vue'
+import gestion_users from './components/gestion_users.vue'
+import Prof_DashBoard from './components/Prof_DashBoard.vue'
+import Prof_Pfe from './components/Prof_Pfe.vue'
+import EtudiantPfe from './components/EtudiantPfe.vue'
+import EtudiantDashboard from './components/EtudiantDashboard.vue'
+import Calendrier from './components/AdminCalendrier.vue'
 
 const routes = [
 	{   path: '/', name: 'home', component: home },
 	{   path: '/login', name: 'login', component: login },
+	{   path: '/admin', name: 'admin', component: admin },
+	{   path: '/gestion_users', name: 'gestion_users', component: gestion_users },
+	{   path: '/Calendrier', name: 'Calendrier', component: Calendrier },
+
+	
+	//{   path: '/DashBoard', name: 'DashBoard', component: DashBoard },
 	{   path: '/Prof', name: 'Prof', component: Prof },
+	{   path: '/Prof_DashBoard', name: 'Prof_DashBoard', component: Prof_DashBoard },
+	{   path: '/Prof_Pfe', name: 'Prof_Pfe', component: Prof_Pfe },
 	{   path: '/Etudiant', name: 'Etudiant', component: Etudiant },
+	{   path: '/EtudiantPfe', name: 'EtudiantPfe', component: EtudiantPfe },
+	{   path: '/EtudiantDashboard', name: 'EtudiantDashboard', component: EtudiantDashboard },
 	{   path: '/Contact', name: 'Contact', component: Contact },
+
 	//{   path: '/register', name: 'register', component: register },
 ];
 

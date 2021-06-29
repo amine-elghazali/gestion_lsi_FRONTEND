@@ -13,13 +13,14 @@
         <a v-if="!user"> 
             <router-link to="/contact" > Contact</router-link>
         </a>
-
-        <a v-if="user" @click="handleLogout"> Logout</a>
         <div class="dot"></div>
-
+    </nav>
+        <!--<a v-if="user" @click="handleLogout"> Logout</a>
+        
+        
     </nav>
     
-    <!--<nav class="navbar navbar-expand navbar-light fixed-top">
+   <nav class="navbar navbar-expand navbar-light fixed-top">
         <div class="container">
             <router-link to="/" > Home </router-link>
 
@@ -49,7 +50,6 @@
 
 <script>
 
-import axios from 'axios'
 
 
 export default {
@@ -60,18 +60,7 @@ export default {
     props : [
         'user',
     ],
-    methods : {
-        handleLogout(){
-      axios.post('http://127.0.0.1:8000/api/logout',{body:'logoutbody'},{headers: {
-               'Authorization' : ('Bearer  '+ localStorage.getItem('token'))
-           }})
 
-       
-      //console.log(localStorage.getItem('token'))
-            localStorage.removeItem('token');
-            location.reload();
-        }
-    },
 }
 </script>
 
@@ -95,6 +84,7 @@ body {
 }
 
 .navMenu {
+  margin: auto;
   position: absolute;
   top: 5%;
   left: 50%;

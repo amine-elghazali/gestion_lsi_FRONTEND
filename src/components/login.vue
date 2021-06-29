@@ -1,5 +1,8 @@
 <template>
 
+<div id="login">
+
+
     <navbar />
 
         <div class="row">
@@ -22,7 +25,7 @@
             </div>
         </div>  
 
-
+</div>
 </template>
 
 
@@ -56,15 +59,19 @@ export default {
 
             axios.post('http://127.0.0.1:8000/api/login',data)
             .then( res => { console.log(res) ;
-                 localStorage.setItem('token', res.data.access_token);
+                 localStorage.setItem('token', res.data.access_token);   // // using the token to get our current login user  !  We have to store it to our route ! And use our user endPoint in the other pages 
                     if(res.data.users.utilisateur == 'Professeur') {
-                        this.$router.push('/Prof')
+                        this.$router.push('/Prof_DashBoard')
                     }   
                     if(res.data.users.utilisateur == 'Etudiant') {
-                        this.$router.push('/Etudiant')
+                        this.$router.push('/EtudiantDashboard')
+                    }   
+                     if(res.data.users.utilisateur == 'ADMIN') {
+                        this.$router.push('/admin')
                     }   
                 })
-            // // using the token to get our current login user  !  We have to store it to our route ! And use our user endPoint in the home page 
+
+          
             
               
         }
@@ -77,6 +84,12 @@ export default {
 
 
 <style scoped>
+
+     #login{
+         padding-top: 7%;
+         margin: auto;
+     }
+
     body {
     margin: 0;
     color: #6a6f8c;

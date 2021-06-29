@@ -1,109 +1,48 @@
 <template>
-  <div>
-      <div class="sidebar">
+
+     <div class="sidebar">
 
        <head>
          <link  rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
        </head>
-
                     <div class="logo-details">
                     <i class='bx bxl-c-plus-plus'></i>
-                    <span class="logo_name">Espace etudiant</span>
+                    <span class="logo_name">Espace professeur</span>
                     </div>
                     <ul class="nav-links">
-
-                        <li>
-                            <router-link @click="reload" tag="a" to="/EtudiantDashboard">
-                            <i class='bx bx-grid-alt ' ></i>
-                            <span class="link_name">Home</span>
-                            </router-link>
-                        </li>
-                        <li>
-
-                            <router-link tag="a" to="/Etudiant">
-                            <i class='bx bx-grid-alt ' ></i>
-                            <span class="link_name">Mes notes</span>
-                            </router-link>
-                        </li>
-                        
-                        <li>
-                            <router-link tag="a" to="/EtudiantPfe">
-                            <i class='bx bx-pie-chart-alt-2' ></i>
-                            <span class="link_name">Consulter PFE</span>
-                            </router-link>
-                            
-                        </li>
-
-                        <li>
-                            <router-link tag="a" to="/emploi">
-                            <i class='bx bx-pie-chart-alt-2' ></i>
-                            <span class="link_name">Calendrier</span>
-                            </router-link>
-                            
-                        </li>
-
-                        
-                        <li>
-                        <div class="profile-details">
-                        <div class="profile-content">
-                            <!--<img src="image/profile.jpg" alt="profile">-->
-                        </div>
-                        <div class="name-job">
-                        
-                          <div class="profile_name"> <a @click="handleLogout"><i class=uil-signout> Logout</i></a></div>
-                          
-                        </div>
-                        <i class='bx bx-log-out' ></i>
-                        </div>
+                    <li>
+                        <router-link tag="a" to="/prof">
+                        <i class='bx bx-grid-alt ' ></i>
+                        <span class="link_name">Liste des etudiants</span>
+                        </router-link>
                     </li>
+                    
+                    
+                    <li>
+                        <router-link tag="a" to="/emploi">
+                        <i class='bx bx-pie-chart-alt-2' ></i>
+                        <span class="link_name">Calendrier</span>
+                        </router-link>
+                        
+                    </li>
+
+                    
+                    <li>
+                    <div class="profile-details">
+                    <div class="profile-content">
+                        <!--<img src="image/profile.jpg" alt="profile">-->
+                    </div>
+                    <div class="name-job">
+                     
+                      <div class="profile_name"> <a @click="handleLogout"><i class=uil-signout> Logout</i></a></div>
+                       
+                    </div>
+                    <i class='bx bx-log-out' ></i>
+                    </div>
+                </li>
                 </ul>
-        </div>
-    
-    <div class="content">
-
-        <div id="headerH1" class="m-auto">
-          <h1 class="border-start border-5 ">Consulter les résultats de vos examens</h1>
-        </div>
-    
-        <div class="pr-5 m-auto pt-5">
-          <div class="card border-info w-50 m-auto">
-
-              <div class="card-header p-2 ">
-              <em class="text-muted"> Liste des notes </em>
-              </div>
-
-            <div class="card-body">
-              
-              <table class="table table-sm table-primary table-hover text-center">
-                
-                    <thead class="table-light">
-                      <tr>
-                        <th>#</th>
-                        <th>Module</th>
-                        <th>note</th>
-                      </tr>
-                    </thead>
-                    
-                    <tbody>
-                      <tr v-for="etd in etudiant" :key="etd.id" >
-                        <td> {{etd.id}}</td>
-                        <td> {{etd.module}} </td>
-                        <td> {{etd.note}}</td>
-                      </tr>
-                    </tbody>
-                    
-              </table>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
   </div>
-
-
 </template>
-
 
 
 <script>
@@ -111,65 +50,30 @@
 import axios from 'axios'
 
 export default {
-    name : 'Etudiant',
-    
-   data(){
+    name : 'sideBar',
+
+    data(){
         return {
             user :null,
-            etudiant :[],
         }
     },
+
     created() {
-      axios.all([
         axios.get('http://127.0.0.1:8000/api/user', {
-            headers : {
-                Authorization : 'Bearer ' + localStorage.getItem('token')
-            }
-        })
-        .then(res => {console.log(res.data.name) ; this.user = res.data })
-        ,
-        axios.get('http://127.0.0.1:8000/api/note/etudiant',{
-            headers : {
-                Authorization : 'Bearer ' + localStorage.getItem('token')
-            }
-        })
-        .then(res => {console.log(res.data.name) ; this.etudiant = res.data })
-      ])
-        
-
+              headers : {
+                    Authorization : 'Bearer ' + localStorage.getItem('token')
+                }
+            })
+            .then(res => {console.log(res.data.name) ; this.user = res.data })
     },
 
-     methods : {
-  
-         handleLogout(){
-      axios.post('http://127.0.0.1:8000/api/logout',{body:'logoutbody'},{headers: {
-               'Authorization' : ('Bearer  '+ localStorage.getItem('token'))
-           }})
-            localStorage.removeItem('token');
-            
-            this.$router.push('/')
-        }
-    },
 }
-
 </script>
 
 
+
+
 <style scoped>
-
-
-
-  
-.content{
-  padding-top: 5%;
-  padding-left: 20%;
-}
-
-#headerH1{
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  background-color: #5d9eff27;
-  width: 60% ;
-}
 
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 *{

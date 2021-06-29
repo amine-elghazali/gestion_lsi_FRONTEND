@@ -1,7 +1,9 @@
 <template>
-    <navbar />
+    <div>
+        <navbar />
 
-    <h2> Contact page </h2>
+        <h2> Contact page </h2>
+    </div>
 </template>
 
 
