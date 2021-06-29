@@ -31,12 +31,7 @@
       <li>
         <i class="uil-calendar-alt"></i><router-link tag="a" to=""> Calendrier</router-link>
 
-      </li>
-
-      <li>
-        <i class="uil-bag"></i><router-link tag="a" to=""> Projects</router-link>
-
-      </li>
+      </li> 
 
         <li class="fixed-bottom ">
              <i class=uil-signout></i><a @click="handleLogout" href="#"> Logout</a>

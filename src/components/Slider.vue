@@ -3,6 +3,10 @@
      <br/>
       <br/>
        <br/>
+       <br>
+       <br>
+       <br>
+       <br><br>
     <transition-group name="fade" tag="div">
       <div v-for="i in [currentIndex]" :key="i">
         <img :src="currentImg" />
@@ -56,6 +60,9 @@ export default {
 </script>
 
 <style >
+    body{
+    background-image: url("https://wallpaperaccess.com/full/1567665.png");
+  }
    
    .fade-enter-active,
 .fade-leave-active {

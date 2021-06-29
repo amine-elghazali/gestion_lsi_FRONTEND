@@ -1,10 +1,14 @@
 <template>
-<div>
+<div id="template">
     <navbar />
 
     <div id="app">
-                              <Slider/> </div>
+     <Slider/> 
+     </div>
 
+
+
+   <vue-slider v-model="value" />
     </div>
 </template>
 
@@ -20,12 +24,27 @@ import Slider from './Slider.vue'
         name : 'home',
         components : {
             navbar ,
-            Slider,
+            Slider
         },
+         data () {
+           return {
+      value: 0
+    }
+  }
         
     }
 </script>
 
 <style scoped>
 
+ #app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+body {
+  margin: 0px;
+}
 </style>

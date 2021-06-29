@@ -18,7 +18,7 @@
                     <ul class="nav-links">
 
                           <li>
-                              <router-link tag="a" to="/EtudiantDashboard">
+                              <router-link tag="a" to="/Prof_DashBoard">
                               <i class='bx bx-grid-alt ' ></i>
                               <span class="link_name">Home</span>
                               </router-link>

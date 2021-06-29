@@ -1,86 +1,114 @@
 <template>
+    <div>
+            <div class="sidebar">
 
-     <div class="sidebar">
-
-       <head>
-         <link  rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
-       </head>
+            <head>
+                <link  rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
+            </head>
+                    
                     <div class="logo-details">
-                    <i class='bx bxl-c-plus-plus'></i>
-                    <span class="logo_name">Espace professeur</span>
-                    </div>
-                    <ul class="nav-links">
-                    <li>
-                        <router-link tag="a" to="/prof">
-                        <i class='bx bx-grid-alt ' ></i>
-                        <span class="link_name">Liste des etudiants</span>
-                        </router-link>
-                    </li>
-                    
-                    
-                    <li>
-                        <router-link tag="a" to="/emploi">
-                        <i class='bx bx-pie-chart-alt-2' ></i>
-                        <span class="link_name">Calendrier</span>
-                        </router-link>
-                        
-                    </li>
+                            <i class='bx bxl-c-plus-plus'></i>
+                                <span class="logo_name">Espace etudiant</span>
+                                </div>
+                            <ul class="nav-links">
 
-                    
-                    <li>
-                    <div class="profile-details">
-                    <div class="profile-content">
-                        <!--<img src="image/profile.jpg" alt="profile">-->
-                    </div>
-                    <div class="name-job">
-                     
-                      <div class="profile_name"> <a @click="handleLogout"><i class=uil-signout> Logout</i></a></div>
-                       
-                    </div>
-                    <i class='bx bx-log-out' ></i>
-                    </div>
-                </li>
-                </ul>
-  </div>
+                                    <li>
+                                        <router-link @click="reload" tag="a" to="/EtudiantDashboard">
+                                        <i class='bx bx-grid-alt ' ></i>
+                                        <span class="link_name">Home</span>
+                                        </router-link>
+                                    </li>
+
+                                    <li>
+                                        <router-link @click="reload" tag="a" to="/Etudiant">
+                                        <i class='bx bx-grid-alt ' ></i>
+                                        <span class="link_name">Mes notes</span>
+                                        </router-link>
+                                    </li>
+                                    
+                                    <li>
+                                        <router-link @click="reload" tag="a" to="/EtudiantPfe">
+                                        <i class='bx bx-pie-chart-alt-2' ></i>
+                                        <span class="link_name">Consulter PFE</span>
+                                        </router-link>
+                                        
+                                    </li>
+
+                                    <li>
+                                        <router-link tag="a" to="/EtudiantEmploi">
+                                        <i class='bx bx-pie-chart-alt-2' ></i>
+                                        <span class="link_name">Calendrier</span>
+                                        </router-link>
+                                        
+                                    </li>
+
+                                    
+                                    <li>
+                                    <div class="profile-details">
+                                    <div class="profile-content">
+                                        <!--<img src="image/profile.jpg" alt="profile">-->
+                                    </div>
+                                    <div class="name-job">
+                                    
+                                    <div class="profile_name"> <a @click="handleLogout"><i class=uil-signout> Logout</i></a></div>
+                                    
+                                    </div>
+                                    <i class='bx bx-log-out' ></i>
+                                    </div>
+                                </li>
+                          </ul>
+                  </div>
+
+
+                <div class="content">
+                            <div id="headerH1" class="m-auto">
+                                <h1 class="border-start border-5 ">Consulter Votre emploi du temp</h1>
+                            </div>
+
+                    <EmploiEtudiant />
+                        
+                </div>
+    </div>
 </template>
 
 
 <script>
 
+import EmploiEtudiant from './EmploiEtudiant.vue'
 import axios from 'axios'
-
 export default {
-    name : 'sideBar',
+    name : 'EtudiantEmploi',
 
-    data(){
-        return {
-            user :null,
+    components : {
+        EmploiEtudiant,
+    },
+    methods: {
+             handleLogout(){
+              axios.post('http://127.0.0.1:8000/api/logout',{body:'logoutbody'},{headers: {
+                      'Authorization' : ('Bearer  '+ localStorage.getItem('token'))
+                  }})
+                    localStorage.removeItem('token');
+                    
+                    this.$router.push('/')
         }
-    },
-
-    created() {
-        axios.get('http://127.0.0.1:8000/api/user', {
-              headers : {
-                    Authorization : 'Bearer ' + localStorage.getItem('token')
-                }
-            })
-            .then(res => {console.log(res.data.name) ; this.user = res.data })
-    },
-
+    }
 }
 </script>
 
 
+<style scoped>
 
+ 
+.content{
+  padding-top: 5%;
+  padding-left: 20%;
+}
 
-<style>
-
-  body{
-    
-    padding : 100px 50px 50px 50px ;
-    background-image: url("https://wallpaperaccess.com/full/1567665.png");
-    
-  }
+#headerH1{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: #5d9eff27;
+  width: 60% ;
+}
 
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 *{

@@ -5,7 +5,7 @@
 
   <div>
 
-          <div class="sidebar">
+            <div class="sidebar">
 
             <head>
               <link  rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
@@ -18,7 +18,7 @@
                     <ul class="nav-links">
 
                           <li>
-                              <router-link tag="a" to="/EtudiantDashboard">
+                              <router-link tag="a" to="/Prof_DashBoard">
                               <i class='bx bx-grid-alt ' ></i>
                               <span class="link_name">Home</span>
                               </router-link>
@@ -42,13 +42,13 @@
                           </li>
                           
                           <li>
-                              <router-link tag="a" to="/emploi">
+                              <router-link tag="a" to="/ProfEmploi">
                               <i class='bx bx-pie-chart-alt-2' ></i>
                               <span class="link_name">Calendrier</span>
                               </router-link>
                               
                           </li>
-                          
+              
                           <li>
                             <div class="fixed-bottom">
                               <div class="profile-content">

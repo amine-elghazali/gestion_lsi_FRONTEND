@@ -2,12 +2,6 @@
 
 <div class="p-5">
 
-        <h2 class="shadow mb-5"> Gérer l'emploi du temp : </h2>
-
-        <button class="btn btn-info mb-5 shadow" @click="customEventCreation">
-            addevent
-        </button>
-
             <vue-cal class="border-info" ref="vuecal"
          small
      
@@ -15,9 +9,7 @@
          hide-title-bar
          editable-events
          :events="events"
-         :cell-click-hold="false"
-         :drag-to-create-event="false"
-         :on-event-create="onEventCreate"
+         
 
          :time-from="8 * 60" 
          :time-to="19 * 60" 
@@ -40,6 +32,9 @@ import 'vue-cal/dist/vuecal.css'
 
 
 export default{
+    
+    name : 'EmploiEtudiant',
+
   components: { VueCal },
    
   data(){
@@ -100,23 +95,7 @@ export default{
     
   
   },
-  methods: {
-      customEventCreation () {
-    const dateTime = prompt('Create event on (YYYY-MM-DD HH:mm)', '2021-06-29 13:15')
-
-            // Check if date format is correct before creating event.
-            if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(dateTime)) {
-            this.$refs.vuecal.createEvent(
-                // Formatted start date and time or JavaScript Date object.
-                dateTime,
-                // Event duration in minutes (Integer).
-                120,
-                // Custom event props (optional).
-                { title: 'New Event', content: 'Séance sur la salle E22 ', class: 'blue-event' }
-            )
-            } else if (dateTime) alert('Wrong date format.')
-}
-  },
+ 
   }
 
 </script>

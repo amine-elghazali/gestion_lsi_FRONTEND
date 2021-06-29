@@ -85,11 +85,13 @@ export default {
 
 <style scoped>
 
+    
      #login{
-         padding-top: 7%;
+         
+         padding-top: 8%;
          margin: auto;
      }
-
+    
     body {
     margin: 0;
     color: #6a6f8c;

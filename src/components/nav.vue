@@ -86,8 +86,8 @@ body {
 .navMenu {
   margin: auto;
   position: absolute;
-  top: 5%;
-  left: 50%;
+  top:10%;
+  left: 80%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }

@@ -33,11 +33,6 @@
 
       </li>
 
-      <li>
-        <i class="uil-bag"></i><router-link tag="a" to=""> Projects</router-link>
-
-      </li>
-
         <li class="fixed-bottom ">
              <i class=uil-signout></i><a @click="handleLogout" href="#"> Logout</a>
         </li>
@@ -62,9 +57,9 @@
                 <i class="uil-file fs-2 text-center bg-danger rounded-circle"></i>
                 <div class="ms-3">
                     <div class="d-flex align-items-center">
-                    <h3 class="mb-0">34</h3> <span class="d-block ms-2">Projects</span>
+                    <h3 class="mb-0">30</h3> <span class="d-block ms-2">Projets</span>
                     </div>
-                    <p class="fs-normal mb-0">Lorem ipsum dolor sit amet</p>
+                    <p class="fs-normal mb-0"></p>
                 </div>
                 </div>
             </div>
@@ -73,7 +68,7 @@
                     <i class="uil-users-alt fs-2 text-center bg-success rounded-circle"></i>
                     <div class="ms-3">
                         <div class="d-flex align-items-center">
-                        <h3 class="mb-0">38</h3> <span class="d-block ms-2">Utilisateurs</span>
+                        <h3 class="mb-0">36</h3> <span class="d-block ms-2">Utilisateurs</span>
                         </div>
                         <p class="fs-normal mb-0">Nombre des utilisateurs enregistrés</p>
                     </div>
@@ -94,7 +89,7 @@
                 <div class="col-md-4 col-lg-4 mb-4 mb-lg-0">
                     <div class="box shadow-lg p-0 mb-5 rounded bg-danger p-3">
                     <i class="uil-user"></i>
-                    <h3>8</h3>
+                    <h3>6</h3>
                     <p class="lead">Professeur</p>
                     </div>
                 </div>
@@ -110,9 +105,10 @@
         </section>
     
             <section class="charts mt-4">
-                <div class="chart-container p-3">
+                <div class="chart-container p-3  shadow-lg">
                 <h3 class="fs-6 mb-3">L'emploi du temps </h3>
-                <div style="height: 300px">
+                <div style="height: 550px" class="bg-light  shadow-lgs">
+                    <EmploiEtudiant />
                     <canvas id="chart3" width="100%"></canvas>
                 </div>
                 </div>
@@ -132,10 +128,13 @@
 <script>
 
 import axios from 'axios'
+import EmploiEtudiant from './EmploiEtudiant.vue'
 
 export default {
     name : 'admin',
-
+    components : {
+        EmploiEtudiant,
+    },
      methods: {
         handleLogout(){
             axios.post('http://127.0.0.1:8000/api/logout',{body:'logoutbody'},{headers: {
@@ -155,7 +154,7 @@ export default {
 <style>
      @import 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet';
 
-
+    
    ul > li > a::before {  
   transform: scaleX(0);
   transform-origin: bottom right;
