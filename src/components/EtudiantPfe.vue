@@ -62,7 +62,7 @@
 
                 <div class="content">
                         <div id="headerH1" class="m-auto">
-                          <h1 class="border-start border-5 ">Consulter les résultats de vos examens</h1>
+                          <h1 class="border-start border-5 ">Informations sur votre PFE</h1>
                         </div>
                 
                     <div class="card pt-5">
@@ -160,7 +160,7 @@ export default {
 #headerH1{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   background-color: #5d9eff27;
-  width: 60% ;
+  width: 40% ;
 }
 
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
